@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#2e1434" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- Предотвращаем кэширование -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    
+    <title>Equum - Премиальный транспортный сервис</title>
+    <meta name="description" content="Заказ премиум трансфера в России. Комфортные автомобили, профессиональные водители, высокий уровень сервиса." />
+    
+    <!-- Проверка на старые браузеры -->
+    <script>
+    (function() {
+      // Определяем старые браузеры
+      var isOldBrowser = !('querySelector' in document) || 
+                         !('classList' in document.documentElement) ||
+                         !('addEventListener' in window);
+      
+      // Добавляем класс для старых браузеров
+      if (isOldBrowser && document.documentElement) {
+        document.documentElement.className += ' old-browser';
+      }
+    })();
+    </script>
+    
+    <!-- Контейнер для ошибок с атрибутами ARIA для доступности -->
+    <div id="error-text" style="display:none;" role="alert" aria-live="assertive"></div>
+    
+    <!-- CSS загружаем асинхронно с помощью preload для быстрой загрузки -->
+    <link rel="preload" href="/telegram-fix.css?v=103" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/telegram-fix.css?v=103"></noscript>
+    
+    <!-- Первым загружаем фиксы для предотвращения ошибок при инициализации -->
+    <script src="/telegram-fix.js?v=103" defer></script>
+    
+    <!-- Загружаем API после основных фиксов -->
+    <script src="/api.js?v=107" defer></script>
+  </head>
+  <body>
+    <!-- Основной контейнер с атрибутами доступности -->
+    <div id="root" role="main" aria-label="Основное содержимое"></div>
+    
+    <!-- Запасная загрузка на случай проблем -->
+    <div class="loading-message" style="display:none;">
+      <div style="text-align:center; padding:20px; color:white;">
+        <h2>Загрузка приложения...</h2>
+        <p>Если страница не загружается, <a href="javascript:window.location.reload();" style="color:#d4af37; text-decoration:underline;">перезагрузите страницу</a></p>
+      </div>
+    </div>
+    
+    <!-- Основной скрипт React -->
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Скрипт для резервной загрузки -->
+    <script>
+      // Глобальный обработчик для перезагрузки стилей
+      // если сайт не загрузится через 1.5 секунды
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var root = document.getElementById('root');
+          if (root && (!root.children || root.children.length === 0)) {
+            console.log('Главный контейнер пуст, форсируем перезагрузку скриптов и стилей');
+            
+            // Перезагружаем стили
+            var links = document.querySelectorAll('link[rel="stylesheet"]');
+            for (var i = 0; i < links.length; i++) {
+              var link = links[i];
+              var href = link.getAttribute('href');
+              if (href) {
+                var newHref = href.split('?')[0] + '?reload=' + Date.now();
+                link.setAttribute('href', newHref);
+                console.log('Перезагружаем стиль:', newHref);
+              }
+            }
+            
+            // Проверяем наличие классов на body
+            if (!document.body.classList.contains('browser-view') && 
+                !document.body.classList.contains('telegram-webview')) {
+              console.log('Принудительно добавляем класс browser-view на body');
+              document.body.classList.add('browser-view');
+            }
+            
+            // Показываем сообщение для пользователя если проблемы продолжаются
+            var loadingMsg = document.querySelector('.loading-message');
+            if (loadingMsg) {
+              loadingMsg.style.display = 'block';
+            }
+          }
+        }, 1500);
+      });
+    </script>
+  </body>
+</html>
