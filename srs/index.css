@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-velvet: 72 35 66;
+    --color-pearl: 250 250 250;
+    --color-onyx: 24 24 24;
+    --color-champagne: 247 237 226;
+    --color-gold: 212 175 55;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-pearl text-onyx font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .luxury-text {
+    @apply font-serif text-gold;
+  }
+
+  .nav-link {
+    @apply text-pearl font-medium hover:text-gold transition-colors;
+  }
+
+  .uber-button {
+    @apply bg-gold text-onyx font-medium px-6 py-3 rounded-full flex items-center justify-center gap-2 hover:bg-gold/90 transition-all shadow-lg hover:shadow-xl active:scale-95;
+  }
+
+  .uber-button-outline {
+    @apply border-2 border-pearl text-pearl px-6 py-3 rounded-full flex items-center justify-center gap-2 transition-all hover:bg-pearl/10 font-medium;
+  }
+
+  .uber-input {
+    @apply w-full px-4 py-3 rounded-lg border border-onyx/20 focus:outline-none focus:ring-2 focus:ring-velvet/20 focus:border-velvet transition-colors;
+  }
+
+  textarea.uber-input {
+    @apply resize-none;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-velvet mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-onyx/70 max-w-2xl;
+  }
+
+  .feature-card {
+    @apply bg-pearl p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow;
+  }
+
+  .gradient-overlay {
+    @apply absolute inset-0 bg-gradient-to-b from-velvet/90 via-velvet/70 to-velvet/90;
+  }
+
+  .nav-blur {
+    @apply bg-velvet/95 backdrop-blur-lg shadow-lg border-b border-pearl/10;
+  }
+
+  .hero-gradient {
+    @apply absolute inset-0 bg-gradient-to-r from-onyx/90 to-velvet/70;
+  }
+
+  /* Mobile menu improvements */
+  .mobile-menu {
+    @apply fixed inset-x-0 top-20 bg-velvet/95 backdrop-blur-lg border-y border-pearl/10 shadow-lg;
+  }
+
+  .mobile-menu-link {
+    @apply block w-full px-6 py-4 text-pearl hover:bg-pearl/10 transition-colors;
+  }
+
+  /* Improved text contrast */
+  .hero-text {
+    @apply text-shadow-lg;
+  }
+
+  /* Custom text shadow for better readability */
+  @layer utilities {
+    .text-shadow-lg {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
